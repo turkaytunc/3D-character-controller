@@ -15,6 +15,8 @@ public class PlayerMovement : MonoBehaviour
     private float yVelocity = 0f;
     private float jumpForce = 30f;
 
+    private bool canDoubleJump;
+
 
     void Start()
     {
@@ -25,22 +27,31 @@ public class PlayerMovement : MonoBehaviour
     void Update()
     {
         CalculateVelocity();
+        CalculateVerticalVelocity();
+        characterController.Move(velocity * Time.deltaTime);
+    }
 
+    private void CalculateVerticalVelocity()
+    {
         if (characterController.isGrounded)
-        {
+        {   
             if (Input.GetKeyDown(KeyCode.Space))
             {
+                canDoubleJump = true;
                 yVelocity = jumpForce;
             }
         }
         else
         {
+            if (Input.GetKeyDown(KeyCode.Space) && canDoubleJump)
+            {
+                canDoubleJump = false;
+                yVelocity = jumpForce;
+            }
             yVelocity -= gravityScale;
         }
 
         velocity.y = yVelocity;
-
-        characterController.Move(velocity * Time.deltaTime);
     }
 
     private void CalculateVelocity()
