@@ -2,30 +2,50 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+
+[RequireComponent(typeof(PlayerDirection))]
 public class PlayerMovement : MonoBehaviour
 {
     [SerializeField] private float _movementSpeed;
-    private CharacterController _characterController;
-    private PlayerDirection _playerDirection;
+    private CharacterController characterController;
+    private PlayerDirection playerDirection;
 
-    private Vector3 _velocity;
-    
+    private Vector3 velocity;
+    private float gravityScale = .5f;
+    private float yVelocity = 0f;
+    private float jumpForce = 30f;
+
+
     void Start()
     {
-        _characterController = GetComponent<CharacterController>();
-        _playerDirection = GetComponent<PlayerDirection>();
+        characterController = GetComponent<CharacterController>();
+        playerDirection = GetComponent<PlayerDirection>();
     }
 
     void Update()
     {
         CalculateVelocity();
 
-        _characterController.Move(_velocity * Time.deltaTime);
+        if (characterController.isGrounded)
+        {
+            if (Input.GetKeyDown(KeyCode.Space))
+            {
+                yVelocity = jumpForce;
+            }
+        }
+        else
+        {
+            yVelocity -= gravityScale;
+        }
+
+        velocity.y = yVelocity;
+
+        characterController.Move(velocity * Time.deltaTime);
     }
 
     private void CalculateVelocity()
     {
-        _velocity= _playerDirection.Direction * _movementSpeed;
+        velocity= playerDirection.Direction * _movementSpeed;
     }
    
 }
