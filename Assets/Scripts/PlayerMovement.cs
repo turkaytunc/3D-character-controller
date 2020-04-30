@@ -36,7 +36,7 @@ public class PlayerMovement : MonoBehaviour
             if (Input.GetKeyDown(KeyCode.Space))
             {
                 canDoubleJump = true;
-                yVelocity = jumpForce;
+                yVelocity = jumpForce * Time.deltaTime;
             }
         }
         else
@@ -44,10 +44,12 @@ public class PlayerMovement : MonoBehaviour
             if (Input.GetKeyDown(KeyCode.Space) && canDoubleJump)
             {
                 canDoubleJump = false;
-                yVelocity = jumpForce;
+                yVelocity = jumpForce * Time.deltaTime;
             }
-            yVelocity -= gravityScale;
+
+            yVelocity -= gravityScale * Time.deltaTime;
         }
+
         velocity.y = yVelocity;
     }
 
