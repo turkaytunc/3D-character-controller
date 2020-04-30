@@ -8,11 +8,11 @@ public class PlayerMovement : MonoBehaviour
     private CharacterController characterController;
     private PlayerDirection playerDirection;
 
-    private Vector3 velocity;
     private float gravityScale = .5f;
-    private float yVelocity = 0f;
-    private float jumpForce = 30f;
+    private float jumpForce = 500f;
 
+    private Vector3 velocity;
+    private float yVelocity = 0f;
     private bool canDoubleJump;
 
 
@@ -47,7 +47,7 @@ public class PlayerMovement : MonoBehaviour
                 yVelocity = jumpForce * Time.deltaTime;
             }
 
-            yVelocity -= gravityScale * Time.deltaTime;
+            yVelocity -= gravityScale;
         }
 
         velocity.y = yVelocity;
