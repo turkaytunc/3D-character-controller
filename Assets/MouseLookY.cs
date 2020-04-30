@@ -18,6 +18,5 @@ public class MouseLookY : MonoBehaviour
         tempAngles.x -=  mouseXPos;
 
         transform.localEulerAngles = tempAngles;
-
     }
 }
