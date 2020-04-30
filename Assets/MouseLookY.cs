@@ -1,6 +1,9 @@
-﻿using UnityEngine;
+﻿using System;
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
 
-public class MouseLookX : MonoBehaviour
+public class MouseLookY : MonoBehaviour
 {
     [SerializeField] [Range(0.5f, 5f)] private float mouseSensivity;
     void Update()
@@ -10,10 +13,10 @@ public class MouseLookX : MonoBehaviour
 
     private void LookAtX()
     {
-        float mouseX = Input.GetAxis("Mouse X");
+        float mouseX = Input.GetAxis("Mouse Y");
 
         Vector3 tempAngles = transform.localEulerAngles;
-        tempAngles.y += (mouseX * mouseSensivity);
+        tempAngles.x -=  mouseX* mouseSensivity;
         transform.localEulerAngles = tempAngles;
     }
 }
