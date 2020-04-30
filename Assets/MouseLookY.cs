@@ -13,10 +13,11 @@ public class MouseLookY : MonoBehaviour
 
     private void LookAtX()
     {
-        float mouseX = Input.GetAxis("Mouse Y");
-
+        float mouseXPos = Input.GetAxis("Mouse Y") * mouseSensivity;
         Vector3 tempAngles = transform.localEulerAngles;
-        tempAngles.x -=  mouseX* mouseSensivity;
+        tempAngles.x -=  mouseXPos;
+
         transform.localEulerAngles = tempAngles;
+
     }
 }
