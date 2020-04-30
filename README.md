@@ -1,1 +1,3 @@
-# 3d-controller
+# 3d-character-controller
+
+## first-person controller for unity
