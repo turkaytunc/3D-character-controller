@@ -3,7 +3,6 @@
 public class PlayerDirection : MonoBehaviour
 {
     private Vector3 _direction;
-
     public Vector3 Direction { get => _direction;}
 
     void Update()
