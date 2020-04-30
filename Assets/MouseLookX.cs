@@ -2,7 +2,7 @@
 
 public class MouseLookX : MonoBehaviour
 {
-    [SerializeField] [Range(0.5f, 3f)] private float mouseSensivity;
+    [SerializeField] [Range(0.5f, 5f)] private float mouseSensivity;
     void Update()
     {
         LookAtX();
@@ -13,8 +13,8 @@ public class MouseLookX : MonoBehaviour
         float mouseX = Input.GetAxis("Mouse X");
 
 
-        Quaternion quaternion = Quaternion.Euler(new Vector3(transform.localEulerAngles.x, transform.localEulerAngles.y + (mouseX * mouseSensivity), transform.localEulerAngles.z));
 
-        transform.rotation = quaternion;
+
+        transform.localEulerAngles = new Vector3(transform.localEulerAngles.x, transform.localEulerAngles.y + (mouseX * mouseSensivity), transform.localEulerAngles.z);
     }
 }

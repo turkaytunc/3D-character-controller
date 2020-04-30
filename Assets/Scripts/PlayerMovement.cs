@@ -50,13 +50,13 @@ public class PlayerMovement : MonoBehaviour
             }
             yVelocity -= gravityScale;
         }
-
         velocity.y = yVelocity;
     }
 
     private void CalculateVelocity()
     {
-        velocity= playerDirection.Direction * _movementSpeed;
+        velocity = playerDirection.Direction * _movementSpeed;
+        velocity = transform.TransformDirection(velocity);
     }
    
 }
