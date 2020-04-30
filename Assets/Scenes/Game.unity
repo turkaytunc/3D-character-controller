@@ -318,18 +318,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 963194228, guid: cdc309e35bb13fa4594e05abb02695a1, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0.75
-      objectReference: {fileID: 0}
-    - target: {fileID: 963194228, guid: cdc309e35bb13fa4594e05abb02695a1, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 4952531695611342204, guid: cdc309e35bb13fa4594e05abb02695a1, type: 3}
-      propertyPath: mouseSensivity
-      value: 8
-      objectReference: {fileID: 0}
     - target: {fileID: 6536419309198591096, guid: cdc309e35bb13fa4594e05abb02695a1, type: 3}
       propertyPath: m_Name
       value: Player
