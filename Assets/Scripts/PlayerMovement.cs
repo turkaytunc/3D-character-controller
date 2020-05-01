@@ -7,7 +7,7 @@ public class PlayerMovement : MonoBehaviour
 
     [Header("Gravity Options")]
     private float gravityScale = 9.81f;
-    private float jumpHeight = 50000f;
+    private float jumpHeight = 5f;
 
     private Vector3 movementDirection;
     private Vector3 velocity;
@@ -39,7 +39,7 @@ public class PlayerMovement : MonoBehaviour
             if (Input.GetKeyDown(KeyCode.Space))
             {
                 canDoubleJump = true;
-                yVelocity = Mathf.Sqrt(2 * jumpHeight * gravityScale );
+                yVelocity = 2 * jumpHeight * gravityScale;
             }
         }
         else
@@ -47,7 +47,7 @@ public class PlayerMovement : MonoBehaviour
             if (Input.GetKeyDown(KeyCode.Space) && canDoubleJump)
             {
                 canDoubleJump = false;
-                yVelocity = Mathf.Sqrt(2 * jumpHeight * gravityScale);
+                yVelocity = 2 * jumpHeight * gravityScale;
             }
 
             yVelocity -= gravityScale;
@@ -58,8 +58,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void CalculateHorizontalVelocity()
     {
-        velocity = movementDirection * movementSpeed;
-        velocity = transform.TransformDirection(velocity);
+        velocity = transform.TransformDirection(movementDirection * movementSpeed);
     }
 
     private void GetPlayerDirectionInput()
