@@ -6,8 +6,8 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float movementSpeed;
 
     [Header("Gravity Options")]
-    private float gravityScale = 9.81f;
-    private float jumpHeight = 5f;
+    private float gravityScale = -9.81f;
+    private float jumpHeight = 20f;
 
     private Vector3 movementDirection;
     private Vector3 velocity;
@@ -23,9 +23,12 @@ public class PlayerMovement : MonoBehaviour
 
     void Update()
     {
-        gravityScale = jumpHeight / (2 * (Time.deltaTime * Time.deltaTime));
+        
+        if (characterController.isGrounded)
+        {
+            velocity.y = 0;
+        }
 
-        GetPlayerDirectionInput();
         CalculateHorizontalVelocity();
         CalculateVerticalVelocity();
 
@@ -34,12 +37,13 @@ public class PlayerMovement : MonoBehaviour
 
     private void CalculateVerticalVelocity()
     {
+        
         if (characterController.isGrounded)
         {   
             if (Input.GetKeyDown(KeyCode.Space))
             {
                 canDoubleJump = true;
-                yVelocity = 2 * jumpHeight * gravityScale;
+                yVelocity = -(2 * jumpHeight * gravityScale * Time.deltaTime);
             }
         }
         else
@@ -47,10 +51,10 @@ public class PlayerMovement : MonoBehaviour
             if (Input.GetKeyDown(KeyCode.Space) && canDoubleJump)
             {
                 canDoubleJump = false;
-                yVelocity = 2 * jumpHeight * gravityScale;
+                yVelocity = -(2 * jumpHeight * gravityScale * Time.deltaTime);
             }
 
-            yVelocity -= gravityScale;
+            yVelocity += gravityScale * Time.deltaTime;
         }
 
         velocity.y = yVelocity;
@@ -58,15 +62,12 @@ public class PlayerMovement : MonoBehaviour
 
     private void CalculateHorizontalVelocity()
     {
-        velocity = transform.TransformDirection(movementDirection * movementSpeed);
-    }
-
-    private void GetPlayerDirectionInput()
-    {
         float horizontalInput = Input.GetAxis("Horizontal");
         float verticalInput = Input.GetAxis("Vertical");
 
         movementDirection = new Vector3(horizontalInput, 0, verticalInput);
+        velocity = transform.TransformDirection(movementDirection * movementSpeed * Time.deltaTime);
     }
+
 
 }
