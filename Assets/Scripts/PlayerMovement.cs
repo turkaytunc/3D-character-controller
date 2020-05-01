@@ -6,8 +6,8 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float movementSpeed;
 
     [Header("Gravity Options")]
-    [SerializeField] private float gravityScale = -9.81f;
-    [SerializeField] private float jumpHeight = 5f;
+    [SerializeField] [Range(-40, 10f)] private float gravityScale = -9.81f;
+    [SerializeField] [Range(2f, 30f)] private float jumpHeight = 5f;
 
     private Vector3 movementDirection;
     private Vector3 verticalVelocity;
