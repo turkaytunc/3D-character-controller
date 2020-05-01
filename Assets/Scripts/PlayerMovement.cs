@@ -38,13 +38,10 @@ public class PlayerMovement : MonoBehaviour
     private void CalculateVerticalVelocity()
     {
         
-        if (characterController.isGrounded)
+        if (characterController.isGrounded && Input.GetKeyDown(KeyCode.Space))
         {   
-            if (Input.GetKeyDown(KeyCode.Space))
-            {
-                canDoubleJump = true;
-                yVelocity = -(2 * jumpHeight * gravityScale * Time.deltaTime);
-            }
+            yVelocity = -(2 * jumpHeight * gravityScale * Time.deltaTime);  
+            canDoubleJump = true;          
         }
         else
         {
