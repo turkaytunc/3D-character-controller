@@ -8,62 +8,61 @@ public class PlayerMovement : MonoBehaviour
     [Header("Gravity Options")]
     private float gravityScale = -9.81f;
     private float jumpHeight = 20f;
+    private float mass = 2f;
 
     private Vector3 movementDirection;
-    private Vector3 velocity;
-    private float yVelocity = 0f;
+    private Vector3 verticalVelocity;
     private bool canDoubleJump;
 
 
     void Start()
     {
-        characterController = GetComponent<CharacterController>();
-        
+        characterController = GetComponent<CharacterController>();        
     }
 
     void Update()
-    {
+    {      
+
+        HorizontalMovement();
         
-        if (characterController.isGrounded)
+        VerticalMovement();
+
+        if(characterController.isGrounded && Input.GetKeyDown(KeyCode.Space))
         {
-            velocity.y = 0;
+            verticalVelocity.y = jumpHeight / mass;
+            canDoubleJump = true;
         }
-
-        CalculateHorizontalVelocity();
-        CalculateVerticalVelocity();
-
-        characterController.Move(velocity * Time.deltaTime);
+        else if(Input.GetKeyDown(KeyCode.Space) && canDoubleJump)
+        {
+            canDoubleJump = false;
+            verticalVelocity.y += jumpHeight / mass;
+        }
     }
 
-    private void CalculateVerticalVelocity()
+    private void VerticalMovement()
     {
-        
-        if (characterController.isGrounded && Input.GetKeyDown(KeyCode.Space))
-        {   
-            yVelocity = -(2 * jumpHeight * gravityScale * Time.deltaTime);  
-            canDoubleJump = true;          
+        if (characterController.isGrounded)
+        {
+            verticalVelocity.y = 0f;
         }
         else
         {
-            if (Input.GetKeyDown(KeyCode.Space) && canDoubleJump)
-            {
-                canDoubleJump = false;
-                yVelocity = -(2 * jumpHeight * gravityScale * Time.deltaTime);
-            }
-
-            yVelocity += gravityScale * Time.deltaTime;
+            verticalVelocity.y += gravityScale * Time.deltaTime;
         }
 
-        velocity.y = yVelocity;
+        characterController.Move(verticalVelocity * Time.deltaTime);
     }
 
-    private void CalculateHorizontalVelocity()
+    private void HorizontalMovement()
     {
         float horizontalInput = Input.GetAxis("Horizontal");
         float verticalInput = Input.GetAxis("Vertical");
 
         movementDirection = new Vector3(horizontalInput, 0, verticalInput);
-        velocity = transform.TransformDirection(movementDirection * movementSpeed * Time.deltaTime);
+        movementDirection = transform.TransformDirection(movementDirection);
+
+        characterController.Move(movementDirection * movementSpeed * Time.deltaTime);
+
     }
 
 
