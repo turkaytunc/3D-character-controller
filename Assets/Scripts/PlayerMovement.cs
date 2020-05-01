@@ -6,9 +6,8 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float movementSpeed;
 
     [Header("Gravity Options")]
-    private float gravityScale = -9.81f;
-    private float jumpHeight = 20f;
-    private float mass = 2f;
+    [SerializeField] private float gravityScale = -9.81f;
+    [SerializeField] private float jumpHeight = 5f;
 
     private Vector3 movementDirection;
     private Vector3 verticalVelocity;
@@ -21,21 +20,26 @@ public class PlayerMovement : MonoBehaviour
     }
 
     void Update()
-    {      
+    {
 
         HorizontalMovement();
-        
-        VerticalMovement();
 
-        if(characterController.isGrounded && Input.GetKeyDown(KeyCode.Space))
+
+        VerticalMovement();
+        Jump();
+    }
+
+    private void Jump()
+    {
+        if (characterController.isGrounded && Input.GetKeyDown(KeyCode.Space))
         {
-            verticalVelocity.y = jumpHeight / mass;
+            verticalVelocity.y = Mathf.Sqrt(-2 * jumpHeight * gravityScale);
             canDoubleJump = true;
         }
-        else if(Input.GetKeyDown(KeyCode.Space) && canDoubleJump)
+        else if (Input.GetKeyDown(KeyCode.Space) && canDoubleJump)
         {
             canDoubleJump = false;
-            verticalVelocity.y = jumpHeight / mass;
+            verticalVelocity.y = Mathf.Sqrt(-2 * jumpHeight * gravityScale);
         }
     }
 
