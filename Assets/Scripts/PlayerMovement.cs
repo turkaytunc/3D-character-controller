@@ -35,13 +35,13 @@ public class PlayerMovement : MonoBehaviour
         else if(Input.GetKeyDown(KeyCode.Space) && canDoubleJump)
         {
             canDoubleJump = false;
-            verticalVelocity.y += jumpHeight / mass;
+            verticalVelocity.y = jumpHeight / mass;
         }
     }
 
     private void VerticalMovement()
     {
-        if (characterController.isGrounded)
+        if (characterController.isGrounded && verticalVelocity.y < 0f)
         {
             verticalVelocity.y = 0f;
         }
