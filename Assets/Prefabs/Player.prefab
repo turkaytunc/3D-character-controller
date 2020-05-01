@@ -242,8 +242,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e2c171d72dc71774da774b4e2241393c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mouseSensivityXAxis: 60
-  mouseSensivityYAxis: 60
+  mouseSensivityXAxis: 150
+  mouseSensivityYAxis: 130
   playerControllerTransform: {fileID: 6536419309198591100}
   playerCameraTransform: {fileID: 963194228}
   minCameraXRotationAngle: -50
