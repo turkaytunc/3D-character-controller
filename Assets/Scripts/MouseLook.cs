@@ -3,8 +3,8 @@
 public class MouseLook : MonoBehaviour
 {
     [Header("Mouse Sensivity")]
-    [SerializeField] [Range(10f, 30f)] private float mouseSensivityXAxis = 10f;
-    [SerializeField] [Range(10f, 30f)] private float mouseSensivityYAxis = 10f;
+    [SerializeField] [Range(40f, 100f)] private float mouseSensivityXAxis = 60f;
+    [SerializeField] [Range(40f, 100f)] private float mouseSensivityYAxis = 60f;
 
 
     [SerializeField] private Transform playerControllerTransform;
