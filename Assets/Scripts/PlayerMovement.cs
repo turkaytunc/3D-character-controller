@@ -1,16 +1,15 @@
 ﻿using UnityEngine;
 
-
-[RequireComponent(typeof(PlayerDirection))]
 public class PlayerMovement : MonoBehaviour
 {
-    [SerializeField] private float _movementSpeed;
     private CharacterController characterController;
-    private PlayerDirection playerDirection;
+    [SerializeField] private float movementSpeed;
 
-    private float gravityScale = .5f;
-    private float jumpForce = 500f;
+    [Header("Gravity Options")]
+    private float gravityScale = 9.81f;
+    private float jumpHeight = 500f;
 
+    private Vector3 movementDirection;
     private Vector3 velocity;
     private float yVelocity = 0f;
     private bool canDoubleJump;
@@ -19,13 +18,16 @@ public class PlayerMovement : MonoBehaviour
     void Start()
     {
         characterController = GetComponent<CharacterController>();
-        playerDirection = GetComponent<PlayerDirection>();
+        
     }
 
     void Update()
     {
-        CalculateVelocity();
+        gravityScale = jumpHeight / 2 * Time.deltaTime * Time.deltaTime;
+        GetPlayerDirectionInput();
+        CalculateHorizontalVelocity();
         CalculateVerticalVelocity();
+
         characterController.Move(velocity * Time.deltaTime);
     }
 
@@ -36,7 +38,7 @@ public class PlayerMovement : MonoBehaviour
             if (Input.GetKeyDown(KeyCode.Space))
             {
                 canDoubleJump = true;
-                yVelocity = jumpForce * Time.deltaTime;
+                yVelocity = Mathf.Sqrt(2 * jumpHeight * gravityScale );
             }
         }
         else
@@ -44,7 +46,7 @@ public class PlayerMovement : MonoBehaviour
             if (Input.GetKeyDown(KeyCode.Space) && canDoubleJump)
             {
                 canDoubleJump = false;
-                yVelocity = jumpForce * Time.deltaTime;
+                yVelocity = Mathf.Sqrt(2 * jumpHeight * gravityScale);
             }
 
             yVelocity -= gravityScale;
@@ -53,10 +55,18 @@ public class PlayerMovement : MonoBehaviour
         velocity.y = yVelocity;
     }
 
-    private void CalculateVelocity()
+    private void CalculateHorizontalVelocity()
     {
-        velocity = playerDirection.Direction * _movementSpeed;
+        velocity = movementDirection * movementSpeed;
         velocity = transform.TransformDirection(velocity);
     }
-   
+
+    private void GetPlayerDirectionInput()
+    {
+        float horizontalInput = Input.GetAxis("Horizontal");
+        float verticalInput = Input.GetAxis("Vertical");
+
+        movementDirection = new Vector3(horizontalInput, 0, verticalInput);
+    }
+
 }
