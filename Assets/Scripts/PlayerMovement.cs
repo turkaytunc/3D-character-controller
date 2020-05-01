@@ -7,7 +7,7 @@ public class PlayerMovement : MonoBehaviour
 
     [Header("Gravity Options")]
     private float gravityScale = 9.81f;
-    private float jumpHeight = 500f;
+    private float jumpHeight = 50000f;
 
     private Vector3 movementDirection;
     private Vector3 velocity;
@@ -23,7 +23,8 @@ public class PlayerMovement : MonoBehaviour
 
     void Update()
     {
-        gravityScale = jumpHeight / 2 * Time.deltaTime * Time.deltaTime;
+        gravityScale = jumpHeight / (2 * (Time.deltaTime * Time.deltaTime));
+
         GetPlayerDirectionInput();
         CalculateHorizontalVelocity();
         CalculateVerticalVelocity();
