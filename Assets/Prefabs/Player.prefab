@@ -245,4 +245,4 @@ MonoBehaviour:
   mouseSensivityXAxis: 30
   mouseSensivityYAxis: 30
   playerControllerTransform: {fileID: 6536419309198591100}
-  playerCamera: {fileID: 963194225}
+  playerCameraTransform: {fileID: 963194228}

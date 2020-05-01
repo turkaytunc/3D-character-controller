@@ -2,12 +2,16 @@
 
 public class MouseLook : MonoBehaviour
 {
+    [Header("Mouse Sensivity")]
     [SerializeField] [Range(10f, 30f)] private float mouseSensivityXAxis = 10f;
     [SerializeField] [Range(10f, 30f)] private float mouseSensivityYAxis = 10f;
 
 
     [SerializeField] private Transform playerControllerTransform;
-    [SerializeField] private GameObject playerCamera;
+    [SerializeField] private Transform playerCameraTransform;
+
+    [SerializeField] private float minCameraYAngle = -50f;
+    
 
     private Vector2 inputValue;
     private Vector3 tempAngles = Vector3.zero;
@@ -30,7 +34,7 @@ public class MouseLook : MonoBehaviour
 
         tempAngles.x -= inputValue.y;
         tempAngles.x = Mathf.Clamp(tempAngles.x, -50f, 50f);
-        playerCamera.transform.localRotation = Quaternion.Euler(tempAngles);
+        playerCameraTransform.localRotation = Quaternion.Euler(tempAngles);
     }
 
     private void GetPlayerInput()
