@@ -10,7 +10,9 @@ public class MouseLook : MonoBehaviour
     [SerializeField] private Transform playerControllerTransform;
     [SerializeField] private Transform playerCameraTransform;
 
-    [SerializeField] private float minCameraYAngle = -50f;
+    [Header("Camera X Rotation")]
+    [SerializeField] [Range(-60f, -40f)] private float minCameraXRotationAngle = -50f;
+    [SerializeField] [Range(40f, 60f)] private float maxCameraXRotationAngle = 50f;
     
 
     private Vector2 inputValue;
@@ -31,9 +33,8 @@ public class MouseLook : MonoBehaviour
 
     private void LookAtY()
     {
-
         tempAngles.x -= inputValue.y;
-        tempAngles.x = Mathf.Clamp(tempAngles.x, -50f, 50f);
+        tempAngles.x = Mathf.Clamp(tempAngles.x, minCameraXRotationAngle, maxCameraXRotationAngle);
         playerCameraTransform.localRotation = Quaternion.Euler(tempAngles);
     }
 
