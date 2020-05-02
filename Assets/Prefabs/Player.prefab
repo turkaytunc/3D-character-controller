@@ -230,8 +230,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   movementSpeed: 10
-  gravityScale: -20.5
+  gravityScale: -40
   jumpHeight: 5
+  jumpButton: Jump
 --- !u!114 &1744553948
 MonoBehaviour:
   m_ObjectHideFlags: 0

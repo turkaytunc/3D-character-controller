@@ -6,13 +6,19 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float movementSpeed;
 
     [Header("Gravity Options")]
-    [SerializeField] [Range(-80, 0f)] private float gravityScale = -40f;
+    [SerializeField] [Range(-80f, 0f)] private float gravityScale = -40f;
     [SerializeField] [Range(2f, 30f)] private float jumpHeight = 5f;
+
+    [Header("Button Options")]
+    [SerializeField] private string jumpButton = "Jump";
 
     private Vector3 movementDirection;
     private Vector3 verticalVelocity;
     private bool canDoubleJump;
+    private bool isGrounded;
 
+    public bool CanDoubleJump { get => canDoubleJump; set => canDoubleJump = value; }
+    public bool IsGrounded { get => isGrounded; set => isGrounded = value; }
 
     void Start()
     {
@@ -27,23 +33,24 @@ public class PlayerMovement : MonoBehaviour
         Jump();
     }
 
+
     private void Jump()
     {
-        if (characterController.isGrounded && Input.GetKeyDown(KeyCode.Space))
+        if (IsGrounded && Input.GetButtonDown(jumpButton))
         {
             verticalVelocity.y = Mathf.Sqrt(-2 * jumpHeight * gravityScale);
-            canDoubleJump = true;
+            CanDoubleJump = true;
         }
-        else if (Input.GetKeyDown(KeyCode.Space) && canDoubleJump)
+        else if (Input.GetButtonDown(jumpButton) && CanDoubleJump)
         {
-            canDoubleJump = false;
+            CanDoubleJump = false;
             verticalVelocity.y = Mathf.Sqrt(-2 * jumpHeight * gravityScale);
         }
     }
 
     private void VerticalMovement()
     {
-        if (characterController.isGrounded && verticalVelocity.y < 0f)
+        if (IsGrounded && verticalVelocity.y < 0f)
         {
             verticalVelocity.y = 0f;
         }
@@ -64,6 +71,5 @@ public class PlayerMovement : MonoBehaviour
 
         characterController.Move(movementDirection * movementSpeed * Time.deltaTime);
     }
-
 
 }
