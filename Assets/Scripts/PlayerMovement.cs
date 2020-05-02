@@ -6,7 +6,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float movementSpeed;
 
     [Header("Gravity Options")]
-    [SerializeField] [Range(-40, 10f)] private float gravityScale = -9.81f;
+    [SerializeField] [Range(-80, 0f)] private float gravityScale = -40f;
     [SerializeField] [Range(2f, 30f)] private float jumpHeight = 5f;
 
     private Vector3 movementDirection;
@@ -23,8 +23,6 @@ public class PlayerMovement : MonoBehaviour
     {
 
         HorizontalMovement();
-
-
         VerticalMovement();
         Jump();
     }
@@ -53,7 +51,6 @@ public class PlayerMovement : MonoBehaviour
         {
             verticalVelocity.y += gravityScale * Time.deltaTime;
         }
-
         characterController.Move(verticalVelocity * Time.deltaTime);
     }
 
@@ -66,7 +63,6 @@ public class PlayerMovement : MonoBehaviour
         movementDirection = transform.TransformDirection(movementDirection);
 
         characterController.Move(movementDirection * movementSpeed * Time.deltaTime);
-
     }
 
 
