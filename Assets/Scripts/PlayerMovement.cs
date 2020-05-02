@@ -33,10 +33,9 @@ public class PlayerMovement : MonoBehaviour
         Jump();
     }
 
-
     private void Jump()
     {
-        if (IsGrounded && Input.GetButtonDown(jumpButton))
+        if (characterController.isGrounded && Input.GetButtonDown(jumpButton))
         {
             verticalVelocity.y = Mathf.Sqrt(-2 * jumpHeight * gravityScale);
             CanDoubleJump = true;
@@ -50,7 +49,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void VerticalMovement()
     {
-        if (IsGrounded && verticalVelocity.y < 0f)
+        if (characterController.isGrounded && verticalVelocity.y < 0f)
         {
             verticalVelocity.y = 0f;
         }
