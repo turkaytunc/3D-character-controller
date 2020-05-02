@@ -9,6 +9,11 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] [Range(-80f, 0f)] private float gravityScale = -40f;
     [SerializeField] [Range(2f, 30f)] private float jumpHeight = 5f;
 
+    [Header("Ground Options")]
+    [SerializeField] private Transform groundCheckTransform;
+    [SerializeField] private float groundCheckRadius = 0.2f;
+    [SerializeField] private LayerMask whatIsGround;
+
     [Header("Button Options")]
     [SerializeField] private string jumpButton = "Jump";
 
@@ -31,6 +36,8 @@ public class PlayerMovement : MonoBehaviour
         HorizontalMovement();
         VerticalMovement();
         Jump();
+
+        Debug.Log(GroundCheck());
     }
 
     private void Jump()
@@ -69,6 +76,11 @@ public class PlayerMovement : MonoBehaviour
         movementDirection = transform.TransformDirection(movementDirection);
 
         characterController.Move(movementDirection * movementSpeed * Time.deltaTime);
+    }
+
+    private bool GroundCheck()
+    {
+       return Physics.CheckSphere(groundCheckTransform.position, groundCheckRadius, whatIsGround);
     }
 
 }
