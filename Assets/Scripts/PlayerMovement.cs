@@ -32,17 +32,16 @@ public class PlayerMovement : MonoBehaviour
 
     void Update()
     {
-
+        GroundCheck();
         HorizontalMovement();
         VerticalMovement();
         Jump();
 
-        Debug.Log(GroundCheck());
     }
 
     private void Jump()
     {
-        if (characterController.isGrounded && Input.GetButtonDown(jumpButton))
+        if (IsGrounded && Input.GetButtonDown(jumpButton))
         {
             verticalVelocity.y = Mathf.Sqrt(-2 * jumpHeight * gravityScale);
             CanDoubleJump = true;
@@ -56,7 +55,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void VerticalMovement()
     {
-        if (characterController.isGrounded && verticalVelocity.y < 0f)
+        if (IsGrounded && verticalVelocity.y < 0f)
         {
             verticalVelocity.y = 0f;
         }
@@ -78,9 +77,9 @@ public class PlayerMovement : MonoBehaviour
         characterController.Move(movementDirection * movementSpeed * Time.deltaTime);
     }
 
-    private bool GroundCheck()
+    private void GroundCheck()
     {
-       return Physics.CheckSphere(groundCheckTransform.position, groundCheckRadius, whatIsGround);
+        IsGrounded = Physics.CheckSphere(groundCheckTransform.position, groundCheckRadius, whatIsGround);
     }
 
 }
